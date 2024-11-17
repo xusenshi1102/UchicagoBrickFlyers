@@ -23,15 +23,16 @@ def main():
     )
     args = parser.parse_args()
 
+    # Initialize the 3D reconstruction
     controller = DroneController(target_object=args.target_object, drone_ip=args.drone_ip)
     controller.start()
 
+    # Define SAM2 parameters
     sam2_segmentation = SAM2Segmentation(
         model_cfg="configs/sam2.1/sam2.1_hiera_l.yaml",
         checkpoint_path="../checkpoints/sam2.1_hiera_large.pt"
     )
 
-    # Define SAM2 parameters
     video_path = controller.video_path
     segmentation_output_dir = os.path.join('object', args.target_object, 'segmentation')
     ann_frame_idx = 2  # Frame index
@@ -55,7 +56,7 @@ def main():
     # Define SAM2 parameters
     min_conf_thr = 20
 
-    # Initialize the 3D reconstruction class
+    # Initialize the 3D reconstruction
     dust3r_constructor = Dust3r3DConstruction(min_conf_thr)
 
     # Run the reconstruction
