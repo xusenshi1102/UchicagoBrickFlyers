@@ -23,6 +23,7 @@ def main():
     )
     args = parser.parse_args()
 
+    # Initialize the 3D reconstruction
     controller = DroneController(target_object=args.target_object, drone_ip=args.drone_ip)
     controller.start()
 
@@ -55,7 +56,7 @@ def main():
     # Define SAM2 parameters
     min_conf_thr = 20
 
-    # Initialize the 3D reconstruction class
+    # Initialize the 3D reconstruction
     dust3r_constructor = Dust3r3DConstruction(min_conf_thr)
 
     # Run the reconstruction
