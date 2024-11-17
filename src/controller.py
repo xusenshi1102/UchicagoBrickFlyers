@@ -15,6 +15,7 @@ class DroneController:
             target_object (str): The object to track.
             flight_duration (int): Flight duration in seconds.
         """
+        self.video_path = None
         self.drone = TelloDrone(drone_ip)
         self.detector = YOLODetector('yolov8s-world.pt', target_object)
         self.target_object = target_object
@@ -31,7 +32,6 @@ class DroneController:
 
     def initialize_video_writer(self):
         """Initialize the video writer for recording."""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M")
         frame = self.drone.get_frame()
         if frame is not None:
             height, width, _ = frame.shape
@@ -42,8 +42,9 @@ class DroneController:
 
             video_path = os.path.join(
                 video_dir,
-                f'{self.target_object}_{timestamp}_yoloworld_recording.avi'
+                f'{self.target_object}_yoloworld_recording.avi'
             )
+            self.video_path = video_path
             self.out = cv2.VideoWriter(
                 video_path,
                 cv2.VideoWriter_fourcc(*'XVID'),
