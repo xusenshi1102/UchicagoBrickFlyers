@@ -1,5 +1,6 @@
 from src.controller import DroneController
 from src.segmentation import SAM2Segmentation
+from src.construction3d import Dust3r3DConstruction
 import numpy as np
 import os
 import argparse
@@ -32,7 +33,7 @@ def main():
 
     # Define SAM2 parameters
     video_path = controller.video_path
-    output_dir = os.path.join('object', args.target_object, 'segmentation')
+    segmentation_output_dir = os.path.join('object', args.target_object, 'segmentation')
     ann_frame_idx = 2  # Frame index
     ann_obj_id = 1  # Object ID
     points = np.array([[500, 350], [480, 200]], dtype=np.float32)  # Suitcase Position
@@ -41,7 +42,7 @@ def main():
     # Perform segmentation
     sam2_segmentation.segment_video(
         video_path=video_path,
-        output_dir=output_dir,
+        output_dir=segmentation_output_dir,
         ann_frame_idx=ann_frame_idx,
         ann_obj_id=ann_obj_id,
         points=points,
@@ -51,7 +52,14 @@ def main():
         vis_frame_stride=50
     )
 
+    # Define SAM2 parameters
+    min_conf_thr = 20
 
+    # Initialize the 3D reconstruction class
+    dust3r_constructor = Dust3r3DConstruction(min_conf_thr)
+
+    # Run the reconstruction
+    dust3r_constructor.run_reconstruction(segmentation_output_dir, os.path.join('object', args.target_object))
 
 
 if __name__ == '__main__':
