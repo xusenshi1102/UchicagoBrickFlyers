@@ -1,0 +1,4 @@
+djitellopy~=2.5.0
+opencv-python~=4.10.0.84
+pandas~=2.2.3
+ultralytics~=8.3.18
