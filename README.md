@@ -73,14 +73,14 @@ conda activate brickflyer
 pip install -r requirements.txt
 ```
 
-4. Install SAM2
+4. [Install SAM2](https://github.com/facebookresearch/sam2)
 ```bash
 cd external
 git clone https://github.com/facebookresearch/sam2.git && cd sam2
 pip install -e .
 ```
 
-5. Install Dust3r
+5. [Install DUST3R](https://github.com/naver/dust3r)
 ```bash
 cd external
 git clone --recursive https://github.com/naver/dust3r && cd dust3r
@@ -99,7 +99,7 @@ python3 main.py --target_object --drone_ip
 ```
 
 For a detailed demonstration, you can watch the usage video on YouTube:  
-[**Watch the Video**](https://youtu.be/vi7t1NEUvjg)
+[Watch the Video](https://youtu.be/vi7t1NEUvjg)
 
 
 <!-- LICENSE -->
